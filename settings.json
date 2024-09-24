@@ -2,7 +2,7 @@
 
     // TODO:
     // add toggle todo
-    // add spelling and autocmpltion  
+    // add spelling and autocmpltion
     // add find grep for visual selection
     // quickfixlist like nvim?
     // J/K up down move line
@@ -18,9 +18,9 @@
    // "key": "<shift>ff", "command": "workbench.action.toggleMaximizedPanel", "when": "@command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'",
 
    // "key": "ctrl+alt+m", "command": "workbench.action.toggleMaximizedPanel",
-    
 
-    
+
+
     // theme
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.iconTheme": "rose-pine-icons",
