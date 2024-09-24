@@ -1,0 +1,758 @@
+{
+
+    // TODO:
+    // add toggle todo
+    // add spelling and autocmpltion  
+    // add find grep for visual selection
+    // quickfixlist like nvim?
+    // J/K up down move line
+    // LSP vimkeys
+    // grn key for rename lsp
+    // vanilla nvim keybinds with some modification
+    // keybind maximize terminal window using terminal mode if there is one
+    // workbench.action.toggleMaximizedPanel
+    // when: @command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'
+
+   // Keybindings that are active when the focus is in the editor
+   // https://stackoverflow.com/questions/48511956/toggle-between-fullscreen-editor-and-terminal-in-vs-code
+   // "key": "<shift>ff", "command": "workbench.action.toggleMaximizedPanel", "when": "@command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'",
+
+   // "key": "ctrl+alt+m", "command": "workbench.action.toggleMaximizedPanel",
+    
+
+    
+    // theme
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "rose-pine-icons",
+
+    // virtual environments:
+    "python.venvPath": "/home/messium/.cache/pypoetry/virtualenvs/python-psutil-GEB7EyKo-py3.11/bin",
+
+    "terminal.integrated.profiles.linux": "/bin/zsh",
+    "editor.lineNumbers": "relative",
+    "vim.textwidth": 79, // to have 79 character maxline like PEP8 recommendes, warning could be bad practice sometimes.
+    // vim.textwidth dosn't seem to work, or its just softwrapping.
+
+    // Vim opt"vim.textwidth": n,"vim.textwidth": n,s
+    // To improve vim performance",
+
+    // Here more textwrapping options:
+    "editor.wordWrapColumn": 79,
+    "editor.wordWrap": "wordWrapColumn",
+
+    // other config:
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.highlightedyank.enable": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+
+    // set find-it-faster.general.useTerminalInEditor to true to have the extension window open in the editor panel rather than in the terminal panel.
+
+    "find-it-faster.general.useTerminalInEditor": true,
+    // not working?
+    "vim.shell": "/bin/sh",
+
+    // clean interface
+    "window.menuBarVisibility": "hidden",
+    "editor.minimap.enabled": false,
+    "workbench.tips.enabled": false,
+    "breadcrumbs.enabled": false,
+    "workbench.statusBar.visible": true, // can be useful sometimes its bottom bar. However I want clean interface for now.
+    // TEST:
+    "window.customTitleBarVisibility": "never",
+    "apc.electron": { "frame": false },
+    "window.titleBarStyle": "native",
+    // END TEST
+
+    "update.showReleaseNotes": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "workbench.activityBar.location": "hidden",
+    "editor.titleBar.enabled": false,
+
+    // no telemetry
+    "telemetry.enableTelemetry": false,
+	"telemetry.enableCrashReporter": false,
+    "telemetry.telemetryLevel": "off",
+
+    // start with empty file on startup:
+
+    // Controls how windows are being reopened after starting for the first time. This setting has no effect when the application is already running.
+    // `none`: Never reopen a window. Unless a folder or workspace is opened (e.g. from the command line), an empty window will appear.
+    "window.restoreWindows": "none",
+
+    // Controls whether unsaved files are remembered between sessions, allowing the save prompt when exiting the editor to be skipped.
+    // `off`: Disable hot exit. A prompt will show when attempting to close a window with editors that have unsaved changes.
+    "files.hotExit": "off",
+
+    // Controls which editor is shown at startup, if none are restored from the previous session.
+    // `newUntitledFile`: Open a new untitled text file (only applies when opening an empty window).
+    "workbench.startupEditor": "newUntitledFile",
+
+
+    // vim bindings
+
+    // visual mode bindings
+    "vim.visualModeKeyBindings": [
+        // open in browser
+        {
+            "before": ["<leader>", "s", "g"],
+            "commands": ["openInWeb.openInWebActionList"]
+        },
+
+        // jupyter.execSelectionInteractive
+        {
+            "before": [ "<leader>", "s", "c" ],
+            "commands": ["jupyter.execSelectionInteractive"]
+        },
+        // special visual block config TODO:
+        {
+            "before": ["<control-S-v>"],
+            "commands": ["extension.vim_ctrl+v"]
+        },
+        // interactive line python
+        // jupyter.execSelectionInteractive
+        {
+            "before": ["Shift", "Enter"],
+            "commands": [
+                "jupyter.execSelectionInteractive"
+            ]
+        },
+        {
+        // move lines up / down visual selection
+            "before": ["<S-k>"],
+            "commands": ["editor.action.moveLinesUpAction"]
+        },
+        // {
+        // // interfere with join lines
+        //     "before": ["<S-j>"],
+        //     "commands": ["editor.action.moveLinesDownAction"]
+        // },
+        {
+            "before": [ ">" ],
+            "commands": [ "editor.action.indentLines" ]
+        },
+        {
+            "before": [ "<" ],
+            "commands": [ "editor.action.outdentLines" ]
+        },
+        // copypasta TODO: Interfere with visualineblock
+        {
+            "before": ["ctrl", "v"],
+            "commands": [
+                "editor.action.clipboardPasteAction"
+            ]
+        },
+        // {
+        //     "before": ["ctrl", "c"],
+        //     "commands": [
+        //         "editor.action.clipboardCopyAction"
+        //     ]
+        // },
+        {
+            "before": ["ctrl", "i"],
+            "commands": [
+                "markdown.extension.editing.toggleItalic"
+            ]
+        },
+        // need rebind ? https://github.com/VSCodeVim/Vim?tab=readme-ov-file#key-remapping
+        {
+            "before": "ctrl+shift+y",
+            "command": "vim.remap",
+            "when": "inputFocus && vim.mode == 'Visual'",
+            "args": {
+                "after": ["y", "y"]
+            }
+        },
+        {
+            "before": ["ctrl", "b"],
+            "commands": [
+                "markdown.extension.editing.toggleBold"
+            ]
+        }
+    ],
+    // normal mode bindings
+    "vim.normalModeKeyBindings": [
+        // TODO:  CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help() in nvim
+
+
+        //  "gra" is mapped in Normal and Visual mode to vim.lsp.buf.code_action()
+
+        {
+            "before": ["g", "r", "a"],
+            "commands": ["editor.action.sourceAction"]
+        },
+
+        // go to references lsp
+        {
+            "before": ["g", "r", "r"],
+            "commands": ["editor.action.goToReferences"]
+        },
+
+        // lsp rename style
+        {
+            "before": ["g", "r", "n"],
+            "commands": ["editor.action.rename"]
+        },
+        {
+            "before": ["g", "o"],
+            "commands": ["editor.action.openLink"]
+        },
+        // run file in jupyter same as iron.nvim
+        {
+            "before": ["<leader>", "s", "f"],
+            "commands": ["jupyter.runFileInteractive"]
+        },
+        // todo next jump
+
+        {
+            "before": ["]", "t"],
+            "commands": ["todo-tree.goToNext"]
+        },
+        {
+            "before": ["[", "t"],
+            "commands": ["todo-tree.goToPrevious"]
+        },
+        // diagnostics jumps
+        {
+            "before": ["]", "d"],
+            "commands": ["editor.action.marker.next"]
+        },
+        {
+            "before": ["[", "d"],
+            "commands": ["editor.action.marker.prev"]
+        },
+        {
+            "before": ["<leader>", "c", "p" ],
+            "commands": ["workbench.view.extensions"]
+        },
+        {
+            "before": ["<leader>", "c", "d" ],
+            "commands": ["workbench.action.openRawDefaultSettings"]
+        },
+        {
+            "before": ["<leader>", "c", "k" ],
+            "commands": ["workbench.action.openDefaultKeybindingsFile"]
+        },
+
+        // open which key plugin:
+        // docs: https://vspacecode.github.io/docs/whichkey/
+        {
+            "before": ["<leader>"],
+            "commands": ["whichkey.show"]
+        },
+        // explorer
+        // {
+        //     "before": ["<leader>", "e"],
+        //     "commands": [
+        //         "workbench.files.action.showActiveFileInExplorer"
+        //     ]
+        // },
+        // explorer
+        //
+        // switch b/w buffers
+        // WARNING: disabled its join-lines key in my neovim config.
+        // {
+        //     "before": ["<S-j>"],
+        //     "commands": [":bprevious"]
+        // },
+        {
+            "before": ["<S-k>"],
+            "commands": [":bnext"]
+        },
+        // splits alternative
+        {
+            "before": ["<leader>", "v"],
+            "commands": [":vsplit"]
+        },
+        // interfere with split? lines (nvim config)
+        // {
+        //     "before": ["<leader>", "s"],
+        //     "commands": [":split"]
+        // },
+        // split problem whould be to use doom emacs bindings
+        {
+            "before": ["<leader>", "w", "v"],
+            "commands": [":vsplit"]
+        },
+        // interfere with split? lines (nvim config)
+        {
+            "before": ["<leader>", "w", "s"],
+            "commands": [":split"]
+        },
+        // splits from neovim
+        {
+            "before": ["<leader>", "w", "v"],
+            "commands": [":vsplit"]
+        },
+        {
+            "before": ["<leader>", "w", "s"],
+            "commands": [":split"]
+        },
+        // panes DONE conflict with harpoon (disabled for the moment being)
+        // {
+        //     "before": ["<C-h>"],
+        //     "commands": ["workbench.action.focusLeftGroup"]
+        // },
+        // {
+        //     "before": ["<C-j>"],
+        //     "commands": ["workbench.action.focusBelowGroup"]
+        // },
+        // {
+        //     "before": ["<C-k>"],
+        //     "commands": ["workbench.action.focusAboveGroup"]
+        // },
+        // {
+        //     "before": ["<C-l>"],
+        //     "commands": ["workbench.action.focusRightGroup"]
+        // },
+        // panes but doom emacs style:
+        {
+            "before": ["<leader>", "w", "h"],
+            "commands": ["workbench.action.focusLeftGroup"]
+        },
+        {
+            "before": ["<leader>", "w", "j"],
+            "commands": ["workbench.action.focusBelowGroup"]
+        },
+        {
+            "before": ["<leader>", "w", "k"],
+
+            "commands": ["workbench.action.focusAboveGroup"]
+        },
+        {
+            "before": ["<leader>", "w", "l"],
+            "commands": ["workbench.action.focusRightGroup"]
+        },
+        //
+        {
+            "before": ["<leader>", "c", "a"],
+            "commands": ["editor.action.quickFix"]
+        },
+        // {
+        //     "before": ["<leader>", "e"],             // when explorer not open
+        //     // "command": "workbench.view.explorer",   // either of these commands works
+        //     "when": "!explorerviewletvisible",
+        //     "commands": [ "workbench.files.action.focusOpenEditorsView" ]
+        // },
+        // {
+        //     "before": ["<leader>", "e"],              // when explorer open
+        //     "when": "explorerViewletVisible",
+        //     "commands": [ "workbench.action.toggleSidebarVisibility" ]
+        // },
+        {
+            "before": ["<leader>", "e"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [
+                "workbench.files.action.refreshFilesExplorer",
+                "workbench.files.action.focusFilesExplorer"
+            ]
+        },
+        // toggle todo
+        {
+            "before": ["<leader>", "T"],
+            // "when": "explorerViewletVisible",
+            "commands": [ "markdown.extension.checkTaskList" ]
+        },
+
+        // copy relative
+        {
+            "before": ["<leader>", "c", "y"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "copyRelativeFilePath" ]
+        },
+        // copy absolute
+        {
+            "before": ["<leader>", "c", "Y"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "copyFilePath" ]
+        },
+        // new file
+        {
+            "before": ["<leader>", "f", "n"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "explorer.newFile" ]
+        },
+        // new note foam
+            //
+        {
+            "before": ["<leader>", "n", "n"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "foam-vscode.create-note" ]
+        },
+        // foam daily
+        {
+            "before": ["<leader>", "g", "t"],              // when explorer open
+            // "when": "explorerViewletVisible",
+            "commands": [ "foam-vscode.open-daily-note" ]
+        },
+        {
+            "before": ["<leader>", "c", "n"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "explorer.newFile" ]
+        },
+        // new folder
+        {
+            "before": ["<leader>", "c", "N"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "explorer.newFolder" ]
+        },
+        // open terminal window
+        // toggle ctrl + ` vscode default
+        {
+            "before": ["<leader>", "t", "t"],              // when explorer open
+            "when": "explorerViewletVisible",
+            // "commands": [ "terminal.focus" ]
+            "commands": [ "workbench.action.terminal.toggleTerminal" ]
+        },
+
+        // jupyter window
+        {
+            "before": ["<leader>", "t", "p"],              // when explorer open
+            "when": "explorerViewletVisible",
+            "commands": [ "jupyter.execSelectionInteractive" ]
+        },
+        // {
+        //     "before": ["<leader>", "e"], // when Explorer not open
+        //     // "command": "workbench.view.explorer",   // either of these commands works
+        //     "when": "!explorerViewletVisible",
+        //     "commands": [
+        //         // "workbench.files.action.focusFilesExplorer",
+        //         "workbench.view.explorer",
+        //     ]
+        // },
+        // {
+        //     "before": ["<leader>", "e"],              // when Explorer open
+        //     "when": "explorerViewletVisible",
+        //     "commands": [
+        //         "workbench.action.toggleSidebarVisibility",
+        //         "workbench.view.explorer",
+        //     ]
+        // },
+        // config
+        {
+            "before": ["<leader>", "c", "e"],
+            "commands": [
+                "workbench.action.openSettingsJson"
+            ]
+        },
+        {
+            "before": ["<leader>", "c", "n"],
+            "commands": [ "workbench.action.terminal.sendSequence" ],
+            // TODO: this open file picker
+            "args": {
+                "text": "code $HOME/git/nixdots/configuration.nix",
+            }
+        },
+        {
+            "before": ["<leader>", "c", "o"],
+            "commands": [
+                "workbench.action.openSettingsJson"
+            ]
+        },
+        // check keybinding
+        {
+            "before": ["<leader>", "c", "k"],
+            "commands": [
+                "workbench.action.openGlobalKeybindings"
+            ]
+        },
+        // copypasta
+        {
+            "before": ["ctrl", "v"],
+            "commands": [
+                "editor.action.clipboardPasteAction"
+            ]
+        },
+        // bad keybind bad habit yank always
+        // {
+        //     "before": ["ctrl", "c"],
+        //     "commands": [
+        //         "editor.action.clipboardCopyAction"
+        //     ]
+        // },
+        // close window like nvim
+        {
+            "before": ["<leader>", "q"],
+            "commands": [
+                "workbench.action.terminal.killEditor"
+            ]
+        },
+        // close window like doom emacs
+        {
+            "before": ["<leader>", "w", "q"],
+            "commands": [
+                "workbench.action.terminal.killEditor"
+            ]
+        },
+        // line wrapping
+        // yow in nvim temporary binding now
+        {
+            "before": ["<leader>", "w"],
+            "commands": [
+                "editor.action.toggleWordWrap"
+            ]
+        },
+        // write save guardar
+        {
+            "before": ["<leader>", "w", "w"],
+            "commands": [
+                "workbench.action.files.save"
+            ]
+        },
+        // not working TODO:
+        {
+            "before": ["ctrl", "g"],
+            "commands": [
+                "workbench.action.files.save"
+            ]
+        },
+        // open files
+
+        {
+            "before": ["<leader>", "f", "r"],
+            "commands": [
+                "workbench.action.openRecent"
+            ]
+        },
+        // search codebase (opened directories in vscode)
+        // require: https://marketplace.visualstudio.com/items?itemName=TomRijndorp.find-it-faster
+        // TODO: use this instead: open terminal and "code --add $(fzf)"
+        {
+            "before": ["<leader>", "f", "f"],
+            "commands": [
+                "find-it-faster.findFiles"
+            ]
+        },
+        // select interpretor virtual env python
+        {
+            "before": ["<leader>", "f", "v"],
+            "commands": [
+                "python.setInterpreter"
+            ]
+
+        },
+        // TEST:
+        // find grep within files. workbench.action.findInFiles (good alternative?)
+        {
+            "before": ["<leader>", "f", "g"],
+            "commands": [
+                "find-it-faster.findWithinFiles"
+            ]
+        },
+        // harpoon inspired plugin
+        // require: https://marketplace.visualstudio.com/items?itemName=tobias-z.vscode-harpoon
+        {
+            "before": ["<leader>", "a"],
+            "commands": [
+                "vscode-harpoon.addEditor"
+            ]
+        },
+        {
+            // "before": ["ctrl", "e"],
+            "before": ["<leader>", "h"],
+            "commands": [
+                "vscode-harpoon.editorQuickPick"
+            ]
+        },
+        // conflict with buffer window nav
+        {
+            "before": ["ctrl", "h"],
+            "commands": [
+                "vscode-harpoon.gotoEditor1"
+            ]
+        },
+        {
+            "before": ["ctrl", "t"],
+            "commands": [
+                "vscode-harpoon.gotoEditor2"
+            ]
+        },
+        {
+            "before": ["ctrl", "n"],
+            "commands": [
+                "vscode-harpoon.gotoEditor3"
+            ]
+        },
+        {
+            "before": ["ctrl", "s"],
+            "commands": [
+                "vscode-harpoon.gotoEditor4"
+            ]
+        },
+        // add prime keys
+        // goto def
+        {
+            "before": ["gd"],
+            "commands": [
+                "gotoAndPeek"
+            ]
+        },
+        {
+            "before": ["S-j"], "command": [ "editor.action.joinLines" ]
+        },
+        // TODO: need a split lines keybinding aswell!
+        // RESOLVE: No need to keybind gql vim command is part of the vim motions plugins in vscode.
+
+        // non vim binding workbench.action.terminal.paste
+        // non vim binding workbench.action.terminal.copySelection
+        // bookmarks
+        {
+            "before": ["<leader>", "m"],
+            "commands": [
+                "bookmarks.toggle"
+            ]
+        },
+        {
+            "before": ["<leader>", "b"],
+            "commands": [
+                "bookmarks.list"
+            ]
+        },
+        // {
+        //     "before": ["<leader>", "c"],
+        //     "commands": [
+        //         "bookmarks.clear"
+        //     ]
+        // }
+    ],
+    // insert mode bindings
+
+    // escape bindings
+    "vim.insertModeKeyBindings": [
+        {
+        "before": ["j", "j"],
+        "after": ["<Esc>"]
+        },
+        {
+        "before": ["j", "k"],
+        "after": ["<Esc>"]
+        }
+    ],
+    // change modebar https://github.com/VSCodeVim/Vim/issues/1056
+    // "vim.statusBarColorControl": true,
+    // "vim.statusBarColors": {
+    //     "normal": "#268bd2",
+    //     "insert": "#d33682",
+    //     "visual": "#268bd2",
+    //     "visualline": "#2aa198",
+    //     "visualblock": "#859900",
+    //     "replace": "#b58900",
+    // },
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#181825",
+        // "statusBar.noFolderBackground": "#005f87",
+        "statusBar.noFolderBackground": "#181825",
+        "statusBar.debuggingBackground": "#181825",
+        // "statusBar.debuggingBackground": "#005f87",
+        "statusBar.foreground": "#ffffff",
+        "statusBar.debuggingForeground": "#ffffff"
+    },
+    "nix.enableLanguageServer": true, // Enable LSP.
+    "nix.serverPath": "nil", // The path to the LSP server executable.
+
+    // Uncomment these to tweak settings.
+    // "nix.serverSettings": {
+    //   "nil": {
+    //     "formatting": { "command": ["nixfmt"] }
+    //   }
+    // }
+    // "continue.enableTabAutocomplete": false,
+    "foam.openDailyNote.directory": "/home/messium/Documentos/test_vault/Journal",
+    "foam.files.newNotePath": "/home/messium/Documentos/test_vault/Journal",
+    "foam.openDailyNote.titleFormat": "dd-mm-yyyy",
+    "foam.openDailyNote.filenameFormat": "dd-mm-yyyy",
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "interactiveWindow.executeWithShiftEnter": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    // search browser url list:
+    // TODO: add my vim urls to list:
+    "openInWeb.actionList": [
+        {
+            "url": "https://www.google.com/search?q=%SELECTION%",
+            "label": "Google Search"
+        },
+        {
+            "url": "https://search.nixos.org/packages?&from=0&size=50&sort=relevance&type=packages&query=%SELECTION%",
+            "label": "NixPackages"
+        },
+        {
+            "url": "https://search.nixos.org/options?size=50&sort=relevance&type=packages&query=%SELECTION%",
+            "label": "NixOptions"
+        },
+        {
+            "url": "https://selenium-python.readthedocs.io/api.html#%SELECTION%",
+            "label": "Selenium documentation"
+        },
+        {
+            "url": "https://www.google.com/search?q=%LANG%%20%SELECTION%",
+            "label": "Google Search (+language)"
+        },
+        {
+            "url": "https://yandex.ru/search/?text=%LANG%%20%SELECTION%",
+            "label": "Yandex Search (+language)"
+        },
+        {
+            "url": "https://duckduckgo.com/?q=%LANG%%20%SELECTION%",
+            "label": "DuckDuckGo Search (+language)"
+        },
+        {
+            "url": "https://translate.google.com/#auto/en/%SELECTION%",
+            "label": "Google Translator (ENG)"
+        },
+        {
+            "url": "https://translate.yandex.ru/?text=%SELECTION%",
+            "label": "Yandex Translator (AUTO)"
+        }
+    ],
+
+    "openInWeb.defaultAction": "https://www.google.com/search?q=%SELECTION%",
+
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text",
+        "foreground": "red",
+        "background": "white",
+        "opacity": 50,
+        "iconColour": "blue"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check",
+            "type": "line"
+        },
+        "FIXME": {
+            "foreground": "black",
+            "iconColour": "yellow",
+            "gutterIcon": true
+        },
+        "TEST": {
+            "foreground": "black",
+            "iconColour": "yellow",
+            "gutterIcon": true
+        }
+    },
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]",
+        "TEST",
+        "WARNING",
+    ],
+    "python.defaultInterpreterPath": "/home/messium/.cache/pypoetry/virtualenvs/python-psutil-GEB7EyKo-py3.11/bin/python",
+}
