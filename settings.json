@@ -1,5 +1,4 @@
 {
-
     // TODO:
     // add toggle todo
     // add spelling and autocmpltion
@@ -13,11 +12,11 @@
     // workbench.action.toggleMaximizedPanel
     // when: @command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'
 
-   // Keybindings that are active when the focus is in the editor
-   // https://stackoverflow.com/questions/48511956/toggle-between-fullscreen-editor-and-terminal-in-vs-code
-   // "key": "<shift>ff", "command": "workbench.action.toggleMaximizedPanel", "when": "@command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'",
+    // Keybindings that are active when the focus is in the editor
+    // https://stackoverflow.com/questions/48511956/toggle-between-fullscreen-editor-and-terminal-in-vs-code
+    // "key": "<shift>ff", "command": "workbench.action.toggleMaximizedPanel", "when": "@command:workbench.action.toggleMaximizedPanel +when:panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'",
 
-   // "key": "ctrl+alt+m", "command": "workbench.action.toggleMaximizedPanel",
+    // "key": "ctrl+alt+m", "command": "workbench.action.toggleMaximizedPanel",
 
 
 
@@ -32,7 +31,6 @@
     "editor.lineNumbers": "relative",
     "vim.textwidth": 79, // to have 79 character maxline like PEP8 recommendes, warning could be bad practice sometimes.
     // vim.textwidth dosn't seem to work, or its just softwrapping.
-
     // Vim opt"vim.textwidth": n,"vim.textwidth": n,s
     // To improve vim performance",
 
@@ -62,6 +60,9 @@
     "vim.shell": "/bin/sh",
 
     // clean interface
+    "update.mode": "none",
+    "workbench.editor.tabActionCloseVisibility": false,
+    "workbench.editor.showTabs": "single",
     "window.menuBarVisibility": "hidden",
     "editor.minimap.enabled": false,
     "workbench.tips.enabled": false,
@@ -184,6 +185,7 @@
     // normal mode bindings
     "vim.normalModeKeyBindings": [
         // TODO:  CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help() in nvim
+
 
 
         //  "gra" is mapped in Normal and Visual mode to vim.lsp.buf.code_action()
@@ -531,7 +533,7 @@
         {
             "before": ["<leader>", "f", "f"],
             "commands": [
-                "find-it-faster.findFiles"
+                "fzf-quick-open.runFzfFile"
             ]
         },
         // select interpretor virtual env python
@@ -547,7 +549,7 @@
         {
             "before": ["<leader>", "f", "g"],
             "commands": [
-                "find-it-faster.findWithinFiles"
+                "fzf-quick-open.runFzfSearch"
             ]
         },
         // harpoon inspired plugin
@@ -755,4 +757,5 @@
         "WARNING",
     ],
     "python.defaultInterpreterPath": "/home/messium/.cache/pypoetry/virtualenvs/python-psutil-GEB7EyKo-py3.11/bin/python",
+    "workbench.editor.enablePreview": false,
 }
