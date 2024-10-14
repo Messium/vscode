@@ -118,6 +118,13 @@
             "commands": ["openInWeb.openInWebActionList"]
         },
 
+        // workbench.action.terminal.runSelectedText
+        // send selected to terminal
+        {
+            "before": ["<leader>", "s", "s"],
+            "commands": ["workbench.action.terminal.runSelectedText"]
+        },
+
         // jupyter.execSelectionInteractive
         {
             "before": [ "<leader>", "s", "c" ],
@@ -213,15 +220,15 @@
         },
 
         // TODO: make this toggle
+        // TODO: unfolds hardwrapped paragraphs aswell.
+        // {
+        //     "before": ["shift+Tab"],
+        //     "commands": [
+        //         "editor.foldAll"
+        //     ]
+        // },
         {
             "before": ["shift+Tab"],
-            "commands": [
-                "editor.foldAll"
-            ]
-        },
-
-        {
-            "before": ["control+Tab"],
             "commands": [
                 "editor.unfoldAll"
             ]
@@ -369,10 +376,10 @@
         //     "before": ["<S-j>"],
         //     "commands": [":bprevious"]
         // },
-        {
-            "before": ["<S-k>"],
-            "commands": [":bnext"]
-        },
+        // {
+        //     "before": ["<S-k>"],
+        //     "commands": [":bnext"]
+        // },
         // splits alternative
         {
             "before": ["<leader>", "v"],
