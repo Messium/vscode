@@ -39,18 +39,24 @@
     "editor.wordWrap": "wordWrapColumn",
 
     // other config:
+    "vim.foldfix": true,
     "vim.useSystemClipboard": true,
     "vim.hlsearch": true,
     "vim.highlightedyank.enable": true,
     "vim.easymotion": true,
     "vim.incsearch": true,
     "extensions.experimental.affinity": {
-        "vscodevim.vim": 1
+        "vscodevim.vim": 1,
+        "ms-toolsai.jupyter": 3,
+        "ms-toolsai.jupyter-renderers": 3,
+        "ms-python.python": 3
     },
     "vim.leader": "<space>",
+    // Delegate configured keys to be handled by VS Code instead of by the VSCodeVim extension. Any key in keybindings section of the package.json that has a vim.use<C-...> in the when argument can be delegated back to VS Code by setting "<C-...>": false. Example: to use ctrl+f for find (native VS Code behavior): "vim.handleKeys": { "<C-f>": false }.
     "vim.handleKeys": {
         "<C-a>": false,
-        "<C-f>": false
+        "<C-f>": false,
+        "<Tab>": false
     },
 
     // set find-it-faster.general.useTerminalInEditor to true to have the extension window open in the editor panel rather than in the terminal panel.
@@ -66,7 +72,6 @@
     "window.menuBarVisibility": "hidden",
     "editor.minimap.enabled": false,
     "workbench.tips.enabled": false,
-    "breadcrumbs.enabled": false,
     "workbench.statusBar.visible": true, // can be useful sometimes its bottom bar. However I want clean interface for now.
     // TEST:
     "window.customTitleBarVisibility": "never",
@@ -101,7 +106,9 @@
     "workbench.startupEditor": "newUntitledFile",
 
 
+
     // vim bindings
+
 
     // visual mode bindings
     "vim.visualModeKeyBindings": [
@@ -129,6 +136,7 @@
                 "jupyter.execSelectionInteractive"
             ]
         },
+
         {
         // move lines up / down visual selection
             "before": ["<S-k>"],
@@ -180,12 +188,105 @@
             "commands": [
                 "markdown.extension.editing.toggleBold"
             ]
-        }
+        },
+        // move lines up and down with visual selection
+        {
+            "before": ["J"],
+            "commands": ["editor.action.moveLinesDownAction"]
+        },
+        {
+            "before": ["K"],
+            "commands": ["editor.action.moveLinesUpAction"]
+        }, 
     ],
     // normal mode bindings
     "vim.normalModeKeyBindings": [
         // TODO:  CTRL-S is mapped in Insert mode to vim.lsp.buf.signature_help() in nvim
 
+
+        // folds
+        {
+            "before": ["Tab"],
+            "commands": [
+                "editor.toggleFold"
+            ]
+        },
+
+        // TODO: make this toggle
+        {
+            "before": ["shift+Tab"],
+            "commands": [
+                "editor.foldAll"
+            ]
+        },
+
+        {
+            "before": ["control+Tab"],
+            "commands": [
+                "editor.unfoldAll"
+            ]
+        },
+        // mee export mode pandoc
+
+        {
+            "before": ["m", "e"],
+            "commands": [
+                "pandoc.render"
+            ]
+        },
+
+        // update TOC
+        {
+            "before": ["t", "u"],
+            "commands": [
+                "markdown.extension.toc.update"
+            ]
+        },
+        // tabbing
+        {
+            "before": ["<leader>", "Tab"],
+            "commands": [
+                "extension.vim_ctrl+pageup"
+            ]
+        },
+        // next header
+
+        {
+            "key": ["g", "h"],  // or any other key combo
+            "when": "editorTextFocus",
+            "command": "moveby.regex",
+            "args": {
+            "regex": "#+",
+            "properties": ["next", "end"]
+            }
+        },
+        {
+            "key": "shift+ctrl+f6",  // or any other key combo
+            "when": "editorTextFocus",
+            "command": "moveby.regex",
+            "args": {
+            "regex": "#+",
+            "properties": ["prev", "start"]
+            }
+        },
+        // {
+        //     "key": "ctrl+f6",  // or any other key combo
+        //     "when": "editorTextFocus",
+        //     "command": "moveby.regex",
+        //     "args": {
+        //     "regex": "#+",
+        //     "properties": ["next", "end"]
+        //     }
+        // },
+        // {
+        //     "key": "shift+ctrl+f6",  // or any other key combo
+        //     "when": "editorTextFocus",
+        //     "command": "moveby.regex",
+        //     "args": {
+        //     "regex": "#+",
+        //     "properties": ["prev", "start"]
+        //     }
+        // },
 
 
         //  "gra" is mapped in Normal and Visual mode to vim.lsp.buf.code_action()
@@ -490,6 +591,12 @@
                 "workbench.action.terminal.killEditor"
             ]
         },
+        {
+            "before": ["<leader>", "b", "k"],
+            "commands": [
+                "workbench.action.terminal.killEditor"
+            ]
+        },
         // close window like doom emacs
         {
             "before": ["<leader>", "w", "q"],
@@ -609,18 +716,20 @@
         // non vim binding workbench.action.terminal.paste
         // non vim binding workbench.action.terminal.copySelection
         // bookmarks
-        {
-            "before": ["<leader>", "m"],
-            "commands": [
-                "bookmarks.toggle"
-            ]
-        },
-        {
-            "before": ["<leader>", "b"],
-            "commands": [
-                "bookmarks.list"
-            ]
-        },
+        // TODO FIX WARNING
+        // {
+        //     "before": ["<leader>", "m"],
+        //     "commands": [
+        //         "bookmarks.toggle"
+        //     ]
+        // },
+        // TODO <leader>bk is delete buffer
+        // {
+        //     "before": ["<leader>", "b"],
+        //     "commands": [
+        //         "bookmarks.list"
+        //     ]
+        // },
         // {
         //     "before": ["<leader>", "c"],
         //     "commands": [
@@ -756,6 +865,7 @@
         "TEST",
         "WARNING",
     ],
-    "python.defaultInterpreterPath": "/home/messium/.cache/pypoetry/virtualenvs/python-psutil-GEB7EyKo-py3.11/bin/python",
+    "python.defaultInterpreterPath": "/nix/store/9hsvdd0lsi2hwqdb584xvd17w9jxhw5y-python3-3.11.9-env/bin/python",
     "workbench.editor.enablePreview": false,
+    "editor.stickyScroll.enabled": false,
 }
